@@ -6,6 +6,7 @@ import serveStatic from "serve-static";
 
 import shopify from "./shopify.js";
 import productCreator from "./product-creator.js";
+import applyQrCodeApiEndpoints from "./middleware/qr-code-api.js";
 import GDPRWebhookHandlers from "./gdpr.js";
 
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
@@ -54,6 +55,9 @@ app.get("/api/products/create", async (_req, res) => {
   }
   res.status(status).send({ success: status === 200, error });
 });
+
+applyQrCodeApiEndpoints(app);
+
 
 app.use(serveStatic(STATIC_PATH, { index: false }));
 
