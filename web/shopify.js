@@ -5,11 +5,23 @@ import { restResources } from "@shopify/shopify-api/rest/admin/2023-01";
 import { join } from "path";
 import { QRCodesDB } from "./qr-codes-db.js";
 
+
 const dbFile = join(process.cwd(), "database.sqlite");
 const sessionDb = new SQLiteSessionStorage(dbFile);
 // Initialize SQLite DB
 QRCodesDB.db = sessionDb.db;
 QRCodesDB.init();
+
+// The transactions with Shopify will always be marked as test transactions, unless NODE_ENV is production.
+// See the ensureBilling helper to learn more about billing in this template.
+const billingConfig = {
+  "My Shopify One-Time Charge": {
+    // This is an example configuration that would do a one-time charge for $5 (only USD is currently supported)
+    amount: 5.0,
+    currencyCode: "USD",
+    interval: BillingInterval.OneTime,
+  },
+};
 
 const shopify = shopifyApp({
   api: {
@@ -27,3 +39,4 @@ const shopify = shopifyApp({
   sessionStorage: sessionDb,
 });
 
+export default shopify;
