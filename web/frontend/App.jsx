@@ -18,14 +18,6 @@ export default function App() {
       <BrowserRouter>
         <AppBridgeProvider>
           <QueryProvider>
-            <NavigationMenu
-              navigationLinks={[
-                {
-                  label: "Page name",
-                  destination: "/pagename",
-                },
-              ]}
-            />
             <Routes pages={pages} />
           </QueryProvider>
         </AppBridgeProvider>
@@ -33,3 +25,12 @@ export default function App() {
     </PolarisProvider>
   );
 }
+/*
+<NavigationMenu
+              navigationLinks={[
+                {
+                  label: "Page name",
+                  destination: "/pagename",
+                },
+              ]}
+            /> */
